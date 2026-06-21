@@ -1,0 +1,149 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    /* WJIIS Color Palette — Teal + Navy + Orange */
+    --background: 0 0% 100%;
+    --foreground: 196 47% 19%; /* Dark Navy #1a3a4a */
+
+    --card: 0 0% 100%;
+    --card-foreground: 196 47% 19%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 196 47% 19%;
+
+    /* Primary: Dark Navy */
+    --primary: 196 47% 19%; /* #1a3a4a */
+    --primary-foreground: 0 0% 100%;
+
+    /* Secondary: Light Teal bg */
+    --secondary: 191 44% 92%;
+    --secondary-foreground: 196 47% 19%;
+
+    /* Muted */
+    --muted: 191 44% 92%;
+    --muted-foreground: 191 30% 45%;
+
+    /* Accent: Orange */
+    --accent: 20 80% 54%; /* #e8622a */
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 191 30% 85%;
+    --input: 191 30% 85%;
+    --ring: 191 44% 40%; /* Teal */
+
+    --radius: 0.3rem;
+
+    --chart-1: 191 44% 40%;
+    --chart-2: 191 44% 55%;
+    --chart-3: 20 80% 54%;
+    --chart-4: 45 90% 51%;
+    --chart-5: 196 47% 30%;
+  }
+
+  .dark {
+    --background: 222.2 84% 4.9%;
+    --foreground: 210 40% 98%;
+    
+    --card: 222.2 84% 4.9%;
+    --card-foreground: 210 40% 98%;
+    
+    --popover: 222.2 84% 4.9%;
+    --popover-foreground: 210 40% 98%;
+    
+    --primary: 210 40% 98%;
+    --primary-foreground: 222.2 47.4% 11.2%;
+    
+    --secondary: 217.2 32.6% 17.5%;
+    --secondary-foreground: 210 40% 98%;
+    
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+    
+    --accent: 217.2 32.6% 17.5%;
+    --accent-foreground: 210 40% 98%;
+    
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+    
+    --border: 217.2 32.6% 17.5%;
+    --input: 217.2 32.6% 17.5%;
+    --ring: 212.7 26.8% 83.9%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground font-sans;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-sans tracking-tight;
+    font-weight: 800;
+    color: hsl(var(--primary));
+  }
+  
+  h1 {
+    @apply text-4xl md:text-5xl lg:text-6xl mb-6;
+  }
+  
+  h2 {
+    @apply text-3xl md:text-4xl mb-4;
+  }
+  
+  h3 {
+    @apply text-2xl md:text-3xl mb-3;
+  }
+  
+  p {
+    @apply leading-relaxed mb-4;
+    color: hsl(var(--foreground));
+  }
+}
+
+/* Journal Specific Utilities */
+@layer utilities {
+  .journal-container {
+    @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
+  }
+  
+  .journal-card {
+    @apply bg-white border border-slate-200 shadow-sm hover:shadow-md transition-shadow duration-200;
+  }
+  
+  .journal-section-header {
+    @apply border-b-2 border-slate-100 pb-2 mb-6;
+  }
+}
+
+/* Print Styles */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  
+  body {
+    font-size: 12pt;
+    line-height: 1.5;
+    color: black;
+    background: white;
+  }
+  
+  a {
+    text-decoration: none;
+    color: black;
+  }
+  
+  .journal-card {
+    border: none;
+    box-shadow: none;
+  }
+}
