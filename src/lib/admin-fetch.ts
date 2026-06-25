@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 export async function adminFetch(
   input: string,
   init: RequestInit = {}
@@ -8,7 +9,7 @@ export async function adminFetch(
     'x-site-slug': 'ejimapss'
   };
 
-  return fetch(input, {
+  return siteFetch(input, {
     ...init,
     headers: {
       ...(init.headers ?? {}),

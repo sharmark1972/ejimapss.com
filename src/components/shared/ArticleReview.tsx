@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState } from 'react';
 import { Star } from 'lucide-react';
 import { useSession } from 'next-auth/react';
@@ -51,7 +52,7 @@ export default function ArticleReview({
     setSubmitting(true);
 
     try {
-      const response = await fetch(`/api/papers/${paperId}/reviews`, {
+      const response = await siteFetch(`/api/papers/${paperId}/reviews`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

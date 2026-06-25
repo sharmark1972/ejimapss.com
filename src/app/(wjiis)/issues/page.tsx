@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent } from '@/components/shared/ui/card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/shared/ui/select';
@@ -83,7 +84,7 @@ export default function IssuesPage() {
         params.append('volume', volumeFilter);
       }
 
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/issues?${params.toString()}`);
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/issues?${params.toString()}`);
       if (!response.ok) {
         throw new Error('Failed to fetch issues');
       }
@@ -116,7 +117,7 @@ export default function IssuesPage() {
 
   const fetchFilters = useCallback(async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/issues?limit=100`);
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/issues?limit=100`);
       if (!response.ok) {
         throw new Error('Failed to fetch filters');
       }

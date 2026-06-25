@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useEffect, useState } from 'react';
 import { Users, Building, ExternalLink, AlertCircle, RefreshCw, Crown } from 'lucide-react';
 import Image from 'next/image';
@@ -113,7 +114,7 @@ export default function ChiefPatrons({ className = '' }: ChiefPatronsProps) {
       setLoading(true);
       setError({ hasError: false, message: '' });
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/chief-patrons`);
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/chief-patrons`);
       
       if (!response.ok) {
         throw new Error(`Failed to fetch chief patrons: ${response.status} ${response.statusText}`);

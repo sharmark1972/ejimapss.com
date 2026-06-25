@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState } from 'react';
 import { Copy, Download, FileText } from 'lucide-react';
 import { CitationStyle } from '@/lib/citations';
@@ -30,7 +31,7 @@ export default function CitationExport({
   const fetchCitation = async (style: CitationStyle) => {
     setLoading(true);
     try {
-      const response = await fetch(`/api/papers/${paperId}/citations?style=${style}`);
+      const response = await siteFetch(`/api/papers/${paperId}/citations?style=${style}`);
       const data = await response.json();
       setCitation(data.citation);
     } catch (error) {
@@ -57,7 +58,7 @@ export default function CitationExport({
 
   const handleDownload = async (format: 'txt' | 'bib') => {
     try {
-      const response = await fetch(
+      const response = await siteFetch(
         `/api/papers/${paperId}/citations?style=${selectedStyle}&format=${format}`
       );
       const text = await response.text();

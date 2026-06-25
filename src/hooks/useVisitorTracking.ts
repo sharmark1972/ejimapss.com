@@ -1,3 +1,5 @@
+import { siteFetch } from '@/lib/siteFetch'
+
 import { useEffect, useRef } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -47,7 +49,7 @@ export function useVisitorTracking() {
         // Add a small delay to ensure page is fully loaded
         await new Promise(resolve => setTimeout(resolve, 1500));
         
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/visitors`, {
+        const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/visitors`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -81,7 +83,7 @@ export function useVisitorTracking() {
 
 export async function getVisitorAnalytics(timeframe: '1d' | '7d' | '30d' = '7d') {
   try {
-    const response = await fetch(`/api/visitors?timeframe=${timeframe}`);
+    const response = await siteFetch(`/api/visitors?timeframe=${timeframe}`);
     if (!response.ok) {
       throw new Error('Failed to fetch analytics');
     }

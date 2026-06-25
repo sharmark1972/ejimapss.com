@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
@@ -125,7 +126,7 @@ export default function LibraryPage() {
         if (debouncedFilters.sortBy) params.append('sortBy', debouncedFilters.sortBy);
         if (debouncedFilters.sortOrder) params.append('sortOrder', debouncedFilters.sortOrder);
 
-        const response = await fetch(`/api/library/papers?${params}`);
+        const response = await siteFetch(`/api/library/papers?${params}`);
         
         if (!response.ok) {
           throw new Error('Failed to fetch papers');
@@ -180,7 +181,7 @@ export default function LibraryPage() {
     }
 
     try {
-      const response = await fetch(`/api/papers/${paperId}/download`, {
+      const response = await siteFetch(`/api/papers/${paperId}/download`, {
         method: 'GET',
         headers: {
           'Authorization': `Bearer ${session.user?.id}`

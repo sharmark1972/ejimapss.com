@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useEffect, useState, useCallback } from 'react';
 import { usePathname } from 'next/navigation';
 import dynamic from 'next/dynamic';
@@ -72,7 +73,7 @@ export default function AnimationDisplay() {
 
   const fetchActiveAnimation = useCallback(async () => {
     try {
-      const response = await fetch(`/api/animations/active?t=${Date.now()}`);
+      const response = await siteFetch(`/api/animations/active?t=${Date.now()}`);
       if (response.ok) {
         const data = await response.json();
         setActiveAnimation(data);

@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState, useEffect } from 'react';
 import { BookOpen, Calendar, FileText, TrendingUp } from 'lucide-react';
 
@@ -21,7 +22,7 @@ export default function PublicationStatistics() {
 
   const fetchPublicationStats = async () => {
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/publication-stats`);
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/publication-stats`);
       if (response.ok) {
         const data = await response.json();
         setStats(data);

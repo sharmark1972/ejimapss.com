@@ -1,3 +1,5 @@
+import { siteFetch } from '@/lib/siteFetch'
+
 /**
  * DOI (Digital Object Identifier) utilities for academic journal platform
  * Provides validation, formatting, and generation functions for DOI management
@@ -156,7 +158,7 @@ export function extractDOISuffix(doi: string): string | null {
 export async function checkDOIRegistration(doi: string): Promise<boolean> {
   try {
     const formattedDOI = formatDOI(doi);
-    const response = await fetch(`https://api.crossref.org/works/${encodeURIComponent(formattedDOI)}`);
+    const response = await siteFetch(`https://api.crossref.org/works/${encodeURIComponent(formattedDOI)}`);
     return response.ok;
   } catch (error) {
     console.error('Error checking DOI registration:', error);

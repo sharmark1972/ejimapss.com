@@ -1,3 +1,5 @@
+import { siteFetch } from '@/lib/siteFetch'
+
 /**
  * Crossref API integration for DOI registration and metadata management
  * Provides functions to register DOIs and submit metadata to Crossref
@@ -191,7 +193,7 @@ export async function registerDOIWithCrossref(
     const xmlData = createCrossrefXML(depositData, credentials);
 
     // Submit to Crossref
-    const response = await fetch('https://doi.crossref.org/servlet/deposit', {
+    const response = await siteFetch('https://doi.crossref.org/servlet/deposit', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/xml;charset=UTF-8',
@@ -247,7 +249,7 @@ export async function checkDOIStatus(doi: string): Promise<{
   error?: string;
 }> {
   try {
-    const response = await fetch(`https://api.crossref.org/works/${encodeURIComponent(doi)}`);
+    const response = await siteFetch(`https://api.crossref.org/works/${encodeURIComponent(doi)}`);
     
     if (!response.ok) {
       return {
@@ -280,7 +282,7 @@ export async function resolveDOI(doi: string): Promise<{
   error?: string;
 }> {
   try {
-    const response = await fetch(`https://doi.org/${encodeURIComponent(doi)}`, {
+    const response = await siteFetch(`https://doi.org/${encodeURIComponent(doi)}`, {
       method: 'HEAD',
       redirect: 'manual'
     });

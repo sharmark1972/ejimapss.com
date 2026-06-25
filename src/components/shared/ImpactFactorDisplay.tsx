@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState, useEffect } from 'react';
 import { TrendingUp, Award, FileText, ExternalLink } from 'lucide-react';
 
@@ -16,7 +17,7 @@ export default function ImpactFactorDisplay() {
   useEffect(() => {
     const fetchImpactFactor = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/impact-factors`);
+        const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/impact-factors`);
         if (response.ok) {
           const data = await response.json();
           if (data.currentImpactFactor) {

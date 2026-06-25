@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState, useEffect } from 'react';
 import {
   Megaphone,
@@ -50,7 +51,7 @@ export default function AnnouncementsDisplay({
           limit: limit.toString()
         });
         
-        const response = await fetch(`/api/announcements?${params}`);
+        const response = await siteFetch(`/api/announcements?${params}`);
         if (!response.ok) {
           throw new Error('Failed to fetch announcements');
         }

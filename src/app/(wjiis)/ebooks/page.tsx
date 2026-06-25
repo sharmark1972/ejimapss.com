@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useEffect, useState, useCallback } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
@@ -67,7 +68,7 @@ export default function EbooksPage() {
         limit: '12'
       });
 
-      const response = await fetch(`/api/ebooks?${params}`);
+      const response = await siteFetch(`/api/ebooks?${params}`);
       if (response.ok) {
         const data = await response.json();
         setEbooksData(data);

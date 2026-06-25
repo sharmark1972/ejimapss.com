@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState } from 'react';
 import { Wrench, Sparkles, Copy, Check, RefreshCw, AlertCircle, Shield, Quote, Edit3, BookOpenCheck, CheckCircle, Languages, Info, X } from 'lucide-react';
 
@@ -120,7 +121,7 @@ export default function ToolsPage() {
     if (!aiText.trim()) return;
     setIsProcessing(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/ai-humanizer`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/ai-humanizer`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: aiText, intensity }),
@@ -140,7 +141,7 @@ export default function ToolsPage() {
     if (!grammarText.trim()) return;
     setIsProcessing(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/grammar-checker`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/grammar-checker`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: grammarText }),
@@ -160,7 +161,7 @@ export default function ToolsPage() {
     if (!paraphraseText.trim()) return;
     setIsProcessing(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/paraphraser`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/paraphraser`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: paraphraseText, intensity: paraphraseIntensity }),
@@ -180,7 +181,7 @@ export default function ToolsPage() {
     if (!plagiarismText.trim()) return;
     setIsProcessing(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/plagiarism-checker`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/plagiarism-checker`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: plagiarismText }),
@@ -199,7 +200,7 @@ export default function ToolsPage() {
     if (!citationSource.title.trim()) return;
     setIsProcessing(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/citation-generator`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/citation-generator`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ source: citationSource, format: citationFormat }),
@@ -218,7 +219,7 @@ export default function ToolsPage() {
     if (!readabilityText.trim()) return;
     setIsProcessing(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/readability-analyzer`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/readability-analyzer`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: readabilityText }),
@@ -237,7 +238,7 @@ export default function ToolsPage() {
     if (!aiEditorText.trim()) return;
     setIsProcessing(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/ai-content-editor`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/tools/ai-content-editor`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: aiEditorText }),

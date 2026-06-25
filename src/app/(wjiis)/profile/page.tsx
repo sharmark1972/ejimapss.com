@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { redirect } from 'next/navigation';
@@ -58,7 +59,7 @@ export default function ProfilePage() {
   useEffect(() => {
     const fetchProfile = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`);
+        const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`);
         if (response.ok) {
           const data = await response.json();
           setProfile(data);
@@ -78,7 +79,7 @@ export default function ProfilePage() {
 
     const fetchStats = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/dashboard/author`);
+        const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/dashboard/author`);
         if (response.ok) {
           const data = await response.json();
           setStats({
@@ -109,7 +110,7 @@ export default function ProfilePage() {
     setMessage(null);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/me`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json'

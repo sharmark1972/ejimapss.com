@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useEffect, useState } from 'react';
 import { Calendar, MapPin, Globe, Clock, Users, ExternalLink, Search, Filter, ChevronDown } from 'lucide-react';
 import DynamicSEO from '@/components/shared/DynamicSEO';
@@ -41,7 +42,7 @@ export default function ConferencesPage() {
   const fetchConferences = async () => {
     try {
       setLoading(true);
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/conferences`);
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/conferences`);
       if (!response.ok) {
         throw new Error('Failed to fetch conferences');
       }

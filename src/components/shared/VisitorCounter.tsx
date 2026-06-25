@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState, useEffect } from 'react';
 import { Eye, Users, Globe, TrendingUp } from 'lucide-react';
 import { useVisitorTracking } from '@/hooks/useVisitorTracking';
@@ -26,7 +27,7 @@ export default function VisitorCounter() {
   useEffect(() => {
     const fetchStats = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/visitors?timeframe=all`);
+        const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/visitors?timeframe=all`);
         if (response.ok) {
           const data = await response.json();
           const totalVisitors = data.totalVisitors || 0;

@@ -1,3 +1,5 @@
+import { siteFetch } from '@/lib/siteFetch'
+
 import { NextResponse } from 'next/server';
 import { readFile, stat } from 'fs/promises';
 import { join } from 'path';
@@ -69,7 +71,7 @@ export async function buildStoredFileResponse(
   let body: Uint8Array;
 
   if (isRemoteFilePath(filePath)) {
-    const upstream = await fetch(filePath);
+    const upstream = await siteFetch(filePath);
     if (!upstream.ok) {
       throw new Error(`Remote file unavailable: ${upstream.status}`);
     }

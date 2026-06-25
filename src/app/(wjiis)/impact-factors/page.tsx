@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { Award, TrendingUp, FileText, Calendar, ExternalLink, Plus, Edit, Trash2, Eye, Download } from 'lucide-react';
@@ -30,7 +31,7 @@ export default function ImpactFactorsPage() {
   useEffect(() => {
     const fetchImpactFactors = async () => {
       try {
-        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/impact-factors`);
+        const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/impact-factors`);
         if (!response.ok) {
           throw new Error('Failed to fetch impact factors');
         }

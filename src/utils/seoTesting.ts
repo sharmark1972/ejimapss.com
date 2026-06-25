@@ -1,3 +1,5 @@
+import { siteFetch } from '@/lib/siteFetch'
+
 import { JSDOM } from 'jsdom';
 
 export interface SEOAuditResult {
@@ -215,7 +217,7 @@ export async function runSEOAudit(config: SEOTestConfig): Promise<SEOAuditResult
   for (const page of config.pages) {
     try {
       const url = `${config.baseUrl}${page}`;
-      const response = await fetch(url);
+      const response = await siteFetch(url);
       const html = await response.text();
       
       const pageData = await analyzePage(url, html);
@@ -398,7 +400,7 @@ export async function validateSitemap(baseUrl: string): Promise<{ valid: boolean
   const issues: string[] = [];
   
   try {
-    const response = await fetch(`${baseUrl}/sitemap.xml`);
+    const response = await siteFetch(`${baseUrl}/sitemap.xml`);
     
     if (!response.ok) {
       issues.push('Sitemap.xml not accessible');
@@ -436,7 +438,7 @@ export async function validateRobotsTxt(baseUrl: string): Promise<{ valid: boole
   const issues: string[] = [];
   
   try {
-    const response = await fetch(`${baseUrl}/robots.txt`);
+    const response = await siteFetch(`${baseUrl}/robots.txt`);
     
     if (!response.ok) {
       issues.push('Robots.txt not accessible');

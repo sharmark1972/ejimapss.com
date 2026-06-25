@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useEffect, useState } from 'react';
 import { Users, Building, Mail, Briefcase, AlertCircle, RefreshCw, Star, User } from 'lucide-react';
 import Image from 'next/image';
@@ -93,7 +94,7 @@ export default function OurLeadership({ className = '' }: OurLeadershipProps) {
       setLoading(true);
       setError({ hasError: false, message: '' });
       
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/team-members`);
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/team-members`);
       
       if (!response.ok) {
         throw new Error(`Failed to fetch team members`);

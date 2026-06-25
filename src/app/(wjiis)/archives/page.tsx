@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/shared/ui/card';
 import { Badge } from '@/components/shared/ui/badge';
@@ -71,7 +72,7 @@ function ArchiveCard({ archive }: { archive: Archive }) {
 
     try {
       setLoadingPapers(true);
-      const response = await fetch(`/api/archives/papers?archiveId=${archive.id}`);
+      const response = await siteFetch(`/api/archives/papers?archiveId=${archive.id}`);
       if (!response.ok) {
         throw new Error('Failed to fetch papers');
       }
@@ -227,7 +228,7 @@ export default function ArchivesPage() {
       if (yearFilter && yearFilter !== 'all') params.append('year', yearFilter);
       if (volumeFilter && volumeFilter !== 'all') params.append('volume', volumeFilter);
 
-      const response = await fetch(`/api/archives?${params.toString()}`);
+      const response = await siteFetch(`/api/archives?${params.toString()}`);
       if (!response.ok) {
         throw new Error('Failed to fetch archives');
       }
@@ -251,7 +252,7 @@ export default function ArchivesPage() {
       params.append('limit', papersPerPage.toString());
       params.append('sort', sort);
       
-      const response = await fetch(`/api/archives/papers?${params.toString()}`);
+      const response = await siteFetch(`/api/archives/papers?${params.toString()}`);
       if (!response.ok) {
         throw new Error('Failed to fetch all papers');
       }

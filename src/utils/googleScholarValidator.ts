@@ -1,3 +1,5 @@
+import { siteFetch } from '@/lib/siteFetch'
+
 /**
  * Google Scholar Validation Utility
  * Comprehensive validation for Google Scholar compatibility and academic search optimization
@@ -274,7 +276,7 @@ export class GoogleScholarValidator {
         const pdfUrl = paper.pdfUrl?.startsWith('http') ? paper.pdfUrl : `${this.baseUrl}${paper.pdfUrl}`;
         const startTime = Date.now();
         
-        const response = await fetch(pdfUrl, {
+        const response = await siteFetch(pdfUrl, {
           method: 'HEAD',
           headers: { 'User-Agent': this.userAgent }
         });
@@ -352,7 +354,7 @@ export class GoogleScholarValidator {
       } else {
         // Check DOI registration
         try {
-          const crossrefResponse = await fetch(`https://api.crossref.org/works/${encodeURIComponent(paper.doi!)}`);
+          const crossrefResponse = await siteFetch(`https://api.crossref.org/works/${encodeURIComponent(paper.doi!)}`);
           integration.doiRegistered = crossrefResponse.ok;
           integration.crossrefCompatible = true;
 
@@ -368,7 +370,7 @@ export class GoogleScholarValidator {
         // Check DOI resolution
         try {
           const doiUrl = createDOIURL(paper.doi!);
-          const response = await fetch(doiUrl, { method: 'HEAD' });
+          const response = await siteFetch(doiUrl, { method: 'HEAD' });
           integration.doiResolves = response.status >= 200 && response.status < 400;
 
           if (!integration.doiResolves) {
@@ -412,7 +414,7 @@ export class GoogleScholarValidator {
     try {
       // Check if paper page has structured data
       const pageUrl = `${this.baseUrl}/papers/${paper.id}`;
-      const response = await fetch(pageUrl);
+      const response = await siteFetch(pageUrl);
       const html = await response.text();
 
       // Extract JSON-LD scripts
@@ -515,7 +517,7 @@ export class GoogleScholarValidator {
     try {
       // Check main sitemap
       const sitemapUrl = `${this.baseUrl}/sitemap.xml`;
-      const response = await fetch(sitemapUrl);
+      const response = await siteFetch(sitemapUrl);
       
       if (response.ok) {
         accessibility.sitemapAccessible = true;
@@ -590,7 +592,7 @@ export class GoogleScholarValidator {
 
     try {
       const pageUrl = `${this.baseUrl}/papers/${paper.id}`;
-      const response = await fetch(pageUrl);
+      const response = await siteFetch(pageUrl);
       const html = await response.text();
 
       // Check canonical URL
@@ -725,7 +727,7 @@ export class GoogleScholarValidator {
 
     try {
       const pageUrl = `${this.baseUrl}/papers/${paperId}`;
-      const response = await fetch(pageUrl, {
+      const response = await siteFetch(pageUrl, {
         headers: { 'User-Agent': 'Mozilla/5.0 (compatible; Googlebot/2.1; +http://www.google.com/bot.html)' }
       });
 
@@ -749,7 +751,7 @@ export class GoogleScholarValidator {
         const pdfUrlMatch = html.match(/citation_pdf_url[^>]*content="([^"]+)"/);
         if (pdfUrlMatch) {
           const pdfUrl = pdfUrlMatch[1].startsWith('http') ? pdfUrlMatch[1] : `${this.baseUrl}${pdfUrlMatch[1]}`;
-          const pdfResponse = await fetch(pdfUrl, { method: 'HEAD' });
+          const pdfResponse = await siteFetch(pdfUrl, { method: 'HEAD' });
           pdfAccessible = pdfResponse.ok;
         }
 

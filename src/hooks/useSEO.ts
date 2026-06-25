@@ -1,3 +1,5 @@
+import { siteFetch } from '@/lib/siteFetch'
+
 import { useEffect, useState } from 'react';
 
 interface SEOData {
@@ -42,7 +44,7 @@ export function useSEO() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/seo`);
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/seo`);
       if (!response.ok) {
         throw new Error('Failed to fetch SEO data');
       }
@@ -59,7 +61,7 @@ export function useSEO() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/seo`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/admin/seo`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -86,7 +88,7 @@ export function useSEO() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/admin/seo/${id}`, {
+      const response = await siteFetch(`/api/admin/seo/${id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
@@ -113,7 +115,7 @@ export function useSEO() {
     setLoading(true);
     setError(null);
     try {
-      const response = await fetch(`/api/admin/seo/${id}`, {
+      const response = await siteFetch(`/api/admin/seo/${id}`, {
         method: 'DELETE',
       });
 
@@ -160,7 +162,7 @@ export function usePageSEO(pageName: string) {
       setLoading(true);
       setError(null);
       try {
-        const response = await fetch(`/api/admin/seo?page=${encodeURIComponent(pageName)}`);
+        const response = await siteFetch(`/api/admin/seo?page=${encodeURIComponent(pageName)}`);
         if (response.ok) {
           const data = await response.json();
           const pageConfig = data.seoData?.find((config: SEOData) => config.page === pageName);

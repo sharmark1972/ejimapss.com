@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState } from 'react';
 import { Download, Loader2, FileText, CheckCircle, AlertCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
@@ -65,7 +66,7 @@ export default function ArticleGenerator() {
     setSuccess(false);
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/article-generator/generate`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/article-generator/generate`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -92,7 +93,7 @@ export default function ArticleGenerator() {
     if (!generatedContent) return;
 
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/article-generator/pdf`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/article-generator/pdf`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

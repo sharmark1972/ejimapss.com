@@ -1,3 +1,5 @@
+import { siteFetch } from '@/lib/siteFetch'
+
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
 export interface GeminiExtractedData {
@@ -120,7 +122,7 @@ async function tryGemini(apiKey: string, textSample: string): Promise<Omit<Gemin
 
 async function tryZai(apiKey: string, textSample: string): Promise<Omit<GeminiExtractedData, 'extractionMethod'> | null> {
   try {
-    const response = await fetch('https://api.z.ai/api/paas/v4/chat/completions', {
+    const response = await siteFetch('https://api.z.ai/api/paas/v4/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -163,7 +165,7 @@ async function rewriteWithGemini(apiKey: string, content: string): Promise<strin
 
 async function rewriteWithZai(apiKey: string, content: string): Promise<string | null> {
   try {
-    const response = await fetch('https://api.z.ai/api/paas/v4/chat/completions', {
+    const response = await siteFetch('https://api.z.ai/api/paas/v4/chat/completions', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

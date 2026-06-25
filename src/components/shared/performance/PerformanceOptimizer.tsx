@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import React, { useEffect, useState } from 'react';
 import { usePathname } from 'next/navigation';
 
@@ -129,7 +130,7 @@ function prefetchCriticalResources() {
   criticalEndpoints.forEach(endpoint => {
     if ('requestIdleCallback' in window) {
       requestIdleCallback(() => {
-        fetch(endpoint, { method: 'HEAD' }).catch(() => {});
+        siteFetch(endpoint, { method: 'HEAD' }).catch(() => {});
       });
     }
   });

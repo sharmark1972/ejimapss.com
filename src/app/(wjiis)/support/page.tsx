@@ -1,5 +1,6 @@
 'use client';
 
+import { siteFetch } from '@/lib/siteFetch';
 import { useState } from 'react';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
@@ -86,7 +87,7 @@ const SupportPage = () => {
 
     setIsSubmitting(true);
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/support/tickets`, {
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/support/tickets`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -127,7 +128,7 @@ const SupportPage = () => {
     if (!session) return;
     
     try {
-      const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/support/tickets`);
+      const response = await siteFetch(`${process.env.NEXT_PUBLIC_API_URL}/api/support/tickets`);
       if (response.ok) {
         const data = await response.json();
         setTickets(data.tickets || []);
