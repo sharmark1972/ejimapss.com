@@ -1,5 +1,6 @@
-'use client';
+﻿'use client';
 
+import DOMPurify from 'dompurify';
 import { siteFetch } from '@/lib/siteFetch';
 import React, { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/shared/ui/card';
@@ -175,9 +176,10 @@ function ArchiveCard({ archive }: { archive: Archive }) {
                       </p>
                     )}
                     {archivePaper.paper.abstract && (
-                      <p className="text-sm text-gray-700 mb-2 line-clamp-2">
-                        {archivePaper.paper.abstract}
-                      </p>
+                      <div
+                        className="text-sm text-gray-700 mb-2 line-clamp-2"
+                        dangerouslySetInnerHTML={{ __html: DOMPurify.sanitize(archivePaper.paper.abstract) }}
+                      />
                     )}
                     <div className="flex items-center space-x-4 clear-both">
                       {archivePaper.doi && (
@@ -622,3 +624,5 @@ export default function ArchivesPage() {
     </>
   );
 }
+
+
